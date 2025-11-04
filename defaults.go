@@ -8,6 +8,8 @@ var defaultConfig = types.AppConfig{
 	DatastoreConfigs: []types.DatastoreConfig{
 		{
 			Driver:                    "postgres",
+			Path:                      "",
+			Options:                   "?_busy_timeout=5000&_journal_mode=WAL&_foreign_keys=on&cache=shared&_txlock=immediate",
 			Host:                      "localhost",
 			Port:                      5432,
 			Database:                  "station_manager",
