@@ -1,12 +1,11 @@
 package config
 
 import (
-	cfgtypes "github.com/Station-Manager/types/config"
-	dbtypes "github.com/Station-Manager/types/database"
+	"github.com/Station-Manager/types"
 )
 
-var defaultConfig = cfgtypes.Config{
-	DatastoreConfigs: []dbtypes.Config{
+var defaultConfig = types.AppConfig{
+	DatastoreConfigs: []types.DatastoreConfig{
 		{
 			Driver:          "postgres",
 			Host:            "localhost",
