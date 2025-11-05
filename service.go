@@ -7,14 +7,18 @@ import (
 	"sync/atomic"
 )
 
+const (
+	ServiceName = types.AppConfigServiceName
+)
+
 type Service struct {
 	WorkingDir    string
 	AppConfig     types.AppConfig
 	isInitialized atomic.Bool
+	initOnce      sync.Once
 }
 
-var initOnce sync.Once
-
+// Initialize initializes the config service.
 func (s *Service) Initialize() error {
 	const op errors.Op = "config.Service.Initialize"
 	if s == nil {
@@ -25,17 +29,35 @@ func (s *Service) Initialize() error {
 		return nil // Exit gracefully
 	}
 
-	initOnce.Do(func() {
+	s.initOnce.Do(func() {
 		s.isInitialized.Store(true)
 	})
 
 	return nil
 }
 
+// DatastoreConfig returns the datastore configuration.
+func (s *Service) DatastoreConfig() (types.DatastoreConfig, error) {
+	const op errors.Op = "config.Service.DatastoreConfig"
+	emptryRetVal := types.DatastoreConfig{}
+	if s == nil {
+		return emptryRetVal, errors.New(op).Msg(errMsgNilService)
+	}
+	if !s.isInitialized.Load() {
+		return emptryRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	return s.AppConfig.DatastoreConfig, nil
+}
+
+// LoggingConfig returns the logging configuration.
 func (s *Service) LoggingConfig() (types.LoggingConfig, error) {
 	const op errors.Op = "config.Service.LoggingConfig"
 	if s == nil {
 		return types.LoggingConfig{}, errors.New(op).Msg(errMsgNilService)
+	}
+	if !s.isInitialized.Load() {
+		return types.LoggingConfig{}, errors.New(op).Msg(errMsgNotInitialized)
 	}
 
 	return s.AppConfig.LoggingConfig, nil
