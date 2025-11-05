@@ -7,7 +7,7 @@ import (
 var defaultConfig = types.AppConfig{
 	DatastoreConfig: types.DatastoreConfig{
 		Driver:                    "postgres",
-		Path:                      "",
+		Path:                      "db/data.db",
 		Options:                   "?_busy_timeout=5000&_journal_mode=WAL&_foreign_keys=on&cache=shared&_txlock=immediate",
 		Host:                      "localhost",
 		Port:                      5432,
