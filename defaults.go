@@ -25,4 +25,15 @@ var defaultConfig = types.AppConfig{
 			TransactionContextTimeout: 5,  // Seconds
 		},
 	},
+	LoggingConfig: types.LoggingConfig{
+		Level:             "info",
+		WithTimestamp:     true,
+		ConsoleLogging:    false,
+		FileLogging:       true,
+		RelLogFileDir:     "logs",
+		SkipFrameCount:    3,
+		LogFileMaxSizeMB:  100,
+		LogFileMaxAgeDays: 30,
+		LogFileMaxBackups: 5,
+	},
 }
