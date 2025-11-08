@@ -7,15 +7,12 @@ import (
 	"sync/atomic"
 )
 
-const (
-	ServiceName = types.AppConfigServiceName
-)
-
 type Service struct {
 	WorkingDir    string
 	AppConfig     types.AppConfig
 	isInitialized atomic.Bool
 	initOnce      sync.Once
+	initErr       error
 }
 
 // Initialize initializes the config service.
@@ -30,10 +27,13 @@ func (s *Service) Initialize() error {
 	}
 
 	s.initOnce.Do(func() {
-		s.isInitialized.Store(true)
+		// Do some initialization here
+		if s.initErr == nil {
+			s.isInitialized.Store(true)
+		}
 	})
 
-	return nil
+	return s.initErr
 }
 
 // DatastoreConfig returns the datastore configuration.
