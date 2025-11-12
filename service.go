@@ -3,12 +3,13 @@ package config
 import (
 	"github.com/Station-Manager/errors"
 	"github.com/Station-Manager/types"
+	"github.com/Station-Manager/utils"
 	"sync"
 	"sync/atomic"
 )
 
 type Service struct {
-	WorkingDir    string
+	WorkingDir    string `di.inject:"workingdir"`
 	AppConfig     types.AppConfig
 	isInitialized atomic.Bool
 	initOnce      sync.Once
@@ -27,10 +28,24 @@ func (s *Service) Initialize() error {
 	}
 
 	s.initOnce.Do(func() {
-		// Do some initialization here
-		if s.initErr == nil {
-			s.isInitialized.Store(true)
+		var err error
+		if s.WorkingDir, err = utils.WorkingDir(s.WorkingDir); err != nil {
+			s.initErr = errors.New(op).Err(err).Msg(errMsgWorkingDir)
+			return
 		}
+
+		if err = s.loadConfigFile(); err != nil {
+			s.initErr = errors.New(op).Err(err)
+			return
+		}
+
+		// Early validation of loaded configuration
+		if err = validateAppConfig(&s.AppConfig); err != nil {
+			s.initErr = errors.New(op).Err(err)
+			return
+		}
+
+		s.isInitialized.Store(true)
 	})
 
 	return s.initErr
@@ -39,12 +54,12 @@ func (s *Service) Initialize() error {
 // DatastoreConfig returns the datastore configuration.
 func (s *Service) DatastoreConfig() (types.DatastoreConfig, error) {
 	const op errors.Op = "config.Service.DatastoreConfig"
-	emptryRetVal := types.DatastoreConfig{}
+	emptyRetVal := types.DatastoreConfig{}
 	if s == nil {
-		return emptryRetVal, errors.New(op).Msg(errMsgNilService)
+		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
 	}
 	if !s.isInitialized.Load() {
-		return emptryRetVal, errors.New(op).Msg(errMsgNotInitialized)
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
 
 	return s.AppConfig.DatastoreConfig, nil
@@ -53,11 +68,12 @@ func (s *Service) DatastoreConfig() (types.DatastoreConfig, error) {
 // LoggingConfig returns the logging configuration.
 func (s *Service) LoggingConfig() (types.LoggingConfig, error) {
 	const op errors.Op = "config.Service.LoggingConfig"
+	emptyRetVal := types.LoggingConfig{}
 	if s == nil {
-		return types.LoggingConfig{}, errors.New(op).Msg(errMsgNilService)
+		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
 	}
 	if !s.isInitialized.Load() {
-		return types.LoggingConfig{}, errors.New(op).Msg(errMsgNotInitialized)
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
 
 	return s.AppConfig.LoggingConfig, nil

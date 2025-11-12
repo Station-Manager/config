@@ -13,12 +13,12 @@ var postgresConfig = types.DatastoreConfig{
 	Password:                  "",
 	SSLMode:                   "disable",
 	Debug:                     false,
-	MaxOpenConns:              2,
-	MaxIdleConns:              2,
-	ConnMaxLifetime:           10, // Minutes
+	MaxOpenConns:              10, // General-purpose default; tune per deployment
+	MaxIdleConns:              5,
+	ConnMaxLifetime:           30, // Minutes
 	ConnMaxIdleTime:           5,  // Minutes
 	ContextTimeout:            5,  // Seconds
-	TransactionContextTimeout: 5,  // Seconds
+	TransactionContextTimeout: 15, // Seconds
 }
 
 var sqliteConfig = types.DatastoreConfig{
@@ -26,12 +26,12 @@ var sqliteConfig = types.DatastoreConfig{
 	Path:                      "db/data.db",
 	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "5000"},
 	Debug:                     false,
-	MaxOpenConns:              2,
-	MaxIdleConns:              2,
-	ConnMaxLifetime:           10, // Minutes
+	MaxOpenConns:              4, // Readers benefit; writes still serialized
+	MaxIdleConns:              4,
+	ConnMaxLifetime:           0,  // No forced recycle for file-backed DB
 	ConnMaxIdleTime:           5,  // Minutes
 	ContextTimeout:            5,  // Seconds
-	TransactionContextTimeout: 5,  // Seconds
+	TransactionContextTimeout: 10, // Seconds
 }
 
 var defaultConfig = types.AppConfig{
@@ -49,4 +49,5 @@ var defaultConfig = types.AppConfig{
 		ShutdownTimeoutMS:      10000,
 		ShutdownTimeoutWarning: true,
 	},
+	RequiredConfigs: types.RequiredConfigs{},
 }
