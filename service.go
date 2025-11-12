@@ -29,9 +29,12 @@ func (s *Service) Initialize() error {
 
 	s.initOnce.Do(func() {
 		var err error
-		if s.WorkingDir, err = utils.WorkingDir(s.WorkingDir); err != nil {
-			s.initErr = errors.New(op).Err(err).Msg(errMsgWorkingDir)
-			return
+		// This is for situation where the service is not built with an IOCDI container.
+		if s.WorkingDir == "" {
+			if s.WorkingDir, err = utils.WorkingDir(s.WorkingDir); err != nil {
+				s.initErr = errors.New(op).Err(err).Msg(errMsgWorkingDir)
+				return
+			}
 		}
 
 		if err = s.loadConfigFile(); err != nil {
