@@ -1,7 +1,7 @@
 github.com/Station-Manager/errors v0.0.3 h1:4Ny7jCMPEeMUy43lJ/DcspuaUUGo0Qcuu7uuDuoywrA=
 github.com/Station-Manager/errors v0.0.3/go.mod h1:yedsGkIKLyDEUhkm7VrjwE2Qq6Jdlq0MpwEjdDhBwh0=
-github.com/Station-Manager/types v0.0.10 h1:4c2M3gOiVytjQ+5xe/UGrHdbttMtiaWsc0hNisMuQ50=
-github.com/Station-Manager/types v0.0.10/go.mod h1:lbrQKhO/l5BDSyaVEaA8YYnPvmeiUEoZP6waaP/c7WE=
+github.com/Station-Manager/types v0.0.11 h1:YV10x120Z3qKqtGXXq1rmHhWcByiL4ZuiUaz9+JSwqc=
+github.com/Station-Manager/types v0.0.11/go.mod h1:lbrQKhO/l5BDSyaVEaA8YYnPvmeiUEoZP6waaP/c7WE=
 github.com/Station-Manager/utils v0.0.1 h1:ySzRNMn8IjtBduD3mQRlAiU+/WtcZTJDg3iTzQEfeoE=
 github.com/Station-Manager/utils v0.0.1/go.mod h1:N7zcMUDz6yJwjyKonDKPRd8PU19GEy7UfJngH6I2nUo=
 github.com/goccy/go-json v0.10.5 h1:Fq85nIqj+gXn/S5ahsiTlK3TmC85qgirsdTP/+DeaC4=

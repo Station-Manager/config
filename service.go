@@ -37,9 +37,18 @@ func (s *Service) Initialize() error {
 			}
 		}
 
+		// If a LoggingConfig has been pre-seeded (common in tests), preserve it
+		// while still loading remaining configuration from disk.
+		preseedLogCfg := s.AppConfig.LoggingConfig
+
 		if err = s.loadConfigFile(); err != nil {
 			s.initErr = errors.New(op).Err(err)
 			return
+		}
+
+		// Restore pre-seeded LoggingConfig if it was provided (Level is our sentinel)
+		if preseedLogCfg.Level != "" {
+			s.AppConfig.LoggingConfig = preseedLogCfg
 		}
 
 		// Early validation of loaded configuration

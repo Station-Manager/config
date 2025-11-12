@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	github.com/Station-Manager/errors v0.0.3
-	github.com/Station-Manager/types v0.0.10
+	github.com/Station-Manager/types v0.0.11
 	github.com/Station-Manager/utils v0.0.1
 	github.com/goccy/go-json v0.10.5
 )

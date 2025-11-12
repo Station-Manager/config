@@ -32,6 +32,17 @@ The config service resolves its working directory via:
 
 The resolved directory must exist.
 
+## Programmatic overrides (advanced)
+
+If you pre-seed `Service.AppConfig.LoggingConfig` before calling `Initialize()`, the config service preserves that logging section instead of the one loaded from `config.json`. This is intentional to support:
+- Unit/integration tests that need to inject invalid levels or specific writer options
+- Programmatic bootstraps that want to override logging without modifying files
+
+Notes:
+- The sentinel for preserving is a non-empty `LoggingConfig.Level`.
+- Only the logging section is preserved; other sections (e.g., datastore) still load from file.
+- For typical usage, leave `AppConfig` empty and rely on the file.
+
 ## Defaults and tuning guidance
 
 The defaults aim for sensible behavior out of the box and should be tuned per environment and workload.
