@@ -46,17 +46,21 @@ func (s *Service) generateDefaultConfig() error {
 	}
 
 	// Decide which datastore config to embed based on env
-	selected := defaultConfig // start with sqlite default
+	selected := defaultDesktopConfig // start with sqlite default
 	if dbSel := strings.ToLower(strings.TrimSpace(os.Getenv(EnvSmDefaultDB))); dbSel != "" {
-		switch dbSel {
-		case "postgres", "postgresql", "pg":
-			selected.DatastoreConfig = postgresConfig
-		case "sqlite", "sqlite3":
-			// already sqlite; explicitly set for clarity
-			selected.DatastoreConfig = sqliteConfig
-		default:
-			// Unknown selector: leave default (sqlite). Could log later if logging available.
+		if dbSel == "postgres" || dbSel == "postgresql" || dbSel == "pg" {
+			selected = defaultServerConfig
 		}
+		//	selected.DatastoreConfig = postgr{}
+		//switch dbSel {
+		//case "postgres", "postgresql", "pg":
+		//	selected.DatastoreConfig = postgresConfig
+		//case "sqlite", "sqlite3":
+		//	// already sqlite; explicitly set for clarity
+		//	selected.DatastoreConfig = sqliteConfig
+		//default:
+		//	// Unknown selector: leave default (sqlite). Could log later if logging available.
+		//}
 	}
 
 	// Pretty-print selected configuration for readability

@@ -90,3 +90,17 @@ func (s *Service) LoggingConfig() (types.LoggingConfig, error) {
 
 	return s.AppConfig.LoggingConfig, nil
 }
+
+// ServerConfig returns the server configuration from the application configuration. It requires the service to be initialized.
+func (s *Service) ServerConfig() (types.ServerConfig, error) {
+	const op errors.Op = "config.Service.ServerConfig"
+	emptyRetVal := types.ServerConfig{}
+	if s == nil {
+		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
+	}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	return s.AppConfig.ServerConfig, nil
+}

@@ -34,7 +34,7 @@ var sqliteConfig = types.DatastoreConfig{
 	TransactionContextTimeout: 10, // Seconds
 }
 
-var defaultConfig = types.AppConfig{
+var defaultDesktopConfig = types.AppConfig{
 	DatastoreConfig: sqliteConfig,
 	LoggingConfig: types.LoggingConfig{
 		Level:                  "info",
@@ -50,4 +50,29 @@ var defaultConfig = types.AppConfig{
 		ShutdownTimeoutWarning: true,
 	},
 	RequiredConfigs: types.RequiredConfigs{},
+}
+
+var defaultServerConfig = types.AppConfig{
+	DatastoreConfig: postgresConfig,
+	LoggingConfig: types.LoggingConfig{
+		Level:                  "info",
+		WithTimestamp:          true,
+		ConsoleLogging:         false,
+		FileLogging:            true,
+		RelLogFileDir:          "logs",
+		SkipFrameCount:         3,
+		LogFileMaxSizeMB:       100,
+		LogFileMaxAgeDays:      30,
+		LogFileMaxBackups:      5,
+		ShutdownTimeoutMS:      10000,
+		ShutdownTimeoutWarning: true,
+	},
+	RequiredConfigs: types.RequiredConfigs{},
+	ServerConfig: types.ServerConfig{
+		Name:         "Station Manager",
+		Port:         3000,
+		ReadTimeout:  5,  // Seconds
+		WriteTimeout: 10, // Seconds
+		IdleTimeout:  60, // Seconds
+	},
 }
