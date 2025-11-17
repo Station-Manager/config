@@ -47,7 +47,7 @@ var defaultDesktopConfig = types.AppConfig{
 		LogFileMaxAgeDays:      30,
 		LogFileMaxBackups:      5,
 		ShutdownTimeoutMS:      10000,
-		ShutdownTimeoutWarning: true,
+		ShutdownTimeoutWarning: false,
 	},
 	RequiredConfigs: types.RequiredConfigs{},
 }
@@ -65,7 +65,7 @@ var defaultServerConfig = types.AppConfig{
 		LogFileMaxAgeDays:      30,
 		LogFileMaxBackups:      5,
 		ShutdownTimeoutMS:      10000,
-		ShutdownTimeoutWarning: true,
+		ShutdownTimeoutWarning: false,
 	},
 	RequiredConfigs: types.RequiredConfigs{},
 	ServerConfig: types.ServerConfig{
