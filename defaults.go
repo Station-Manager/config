@@ -71,8 +71,9 @@ var defaultServerConfig = types.AppConfig{
 	ServerConfig: types.ServerConfig{
 		Name:         "Station Manager",
 		Port:         3000,
-		ReadTimeout:  5,  // Seconds
-		WriteTimeout: 10, // Seconds
-		IdleTimeout:  60, // Seconds
+		ReadTimeout:  5,       // Seconds
+		WriteTimeout: 10,      // Seconds
+		IdleTimeout:  60,      // Seconds
+		BodyLimit:    2097152, // 1024 * 1024 * 2 = 2MB
 	},
 }
