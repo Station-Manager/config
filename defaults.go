@@ -361,16 +361,6 @@ var defaultRigConfigs = []types.RigConfig{
 			StatusChannelSize:        1,               // Setting this to '0' will cause the channel to be unbuffered!
 			CommandTimeout:           5 * time.Second, // Timeout for command responses (0 = no timeout)
 			RateLimiterCmdsPerSecond: 10,              // Max commands per second (min 1, max 20 by validation)
-			Reconnection: types.ReconnectConfig{
-				Enabled:             true,                   // Enable automatic reconnection by default
-				MaxRetries:          5,                      // Retry up to 5 times before giving up
-				InitialBackoff:      1 * time.Second,        // Start with 1 second delay (reduced for faster recovery)
-				MaxBackoff:          60 * time.Second,       // Cap backoff at 1 minute
-				BackoffMultiplier:   2.0,                    // Double the delay each time
-				HealthCheckInterval: 500 * time.Millisecond, // Check connection health twice per second
-				FailureThreshold:    2,                      // Trigger reconnection after 2 consecutive failures (1 second total)
-				RecoveryThreshold:   2,                      // Consider healthy after 2 consecutive successes
-			},
 		},
 	},
 }

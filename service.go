@@ -105,19 +105,17 @@ func (s *Service) ServerConfig() (types.ServerConfig, error) {
 	return s.AppConfig.ServerConfig, nil
 }
 
+// RequiredConfigs retrieves the required configurations for the application. Returns an error if the service is uninitialized.
 func (s *Service) RequiredConfigs() (types.RequiredConfigs, error) {
 	const op errors.Op = "config.Service.RequiredConfigs"
-	emptyRetVal := types.RequiredConfigs{}
-	if s == nil {
-		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
-	}
-	if !s.isInitialized.Load() {
-		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
-	}
 
+	if !s.isInitialized.Load() {
+		return types.RequiredConfigs{}, errors.New(op).Msg(errMsgNotInitialized)
+	}
 	return s.AppConfig.RequiredConfigs, nil
 }
 
+// RigConfigByID retrieves the RigConfig for the given rig ID from the service's AppConfig. Returns an error if unavailable.
 func (s *Service) RigConfigByID(rigID int64) (types.RigConfig, error) {
 	const op errors.Op = "config.Service.RigConfigByID"
 	emptyRetVal := types.RigConfig{}
