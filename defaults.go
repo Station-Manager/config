@@ -53,6 +53,7 @@ var defaultDesktopConfig = types.AppConfig{
 		ShutdownTimeoutWarning: false,
 	},
 	RequiredConfigs: defaultRequiredConfigs,
+	RigConfigs:      defaultRigConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
