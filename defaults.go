@@ -1,7 +1,10 @@
 package config
 
 import (
+	"github.com/Station-Manager/cat/enums/ans"
+	"github.com/Station-Manager/cat/enums/cmd"
 	"github.com/Station-Manager/types"
+	"time"
 )
 
 var postgresConfig = types.DatastoreConfig{
@@ -49,7 +52,7 @@ var defaultDesktopConfig = types.AppConfig{
 		ShutdownTimeoutMS:      10000,
 		ShutdownTimeoutWarning: false,
 	},
-	RequiredConfigs: types.RequiredConfigs{},
+	RequiredConfigs: defaultRequiredConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -75,5 +78,298 @@ var defaultServerConfig = types.AppConfig{
 		WriteTimeout: 10,      // Seconds
 		IdleTimeout:  60,      // Seconds
 		BodyLimit:    2097152, // 1024 * 1024 * 2 = 2MB
+	},
+}
+
+var defaultRequiredConfigs = types.RequiredConfigs{
+	DefaultRigID: 1,
+}
+
+var defaultRigConfigs = []types.RigConfig{
+	{
+		ID:    1,
+		Name:  "FTdx10",
+		Model: "Yaesu FTdx10",
+		SerialConfig: types.SerialConfig{
+			PortName:      "/dev/ttyUSB0",
+			BaudRate:      38400,
+			DataBits:      8,
+			Parity:        0,
+			StopBits:      0,
+			ReadTimeout:   150,
+			WriteTimeout:  300,
+			RTS:           true,
+			DTR:           true,
+			LineDelimiter: ';',
+		},
+		CatCommands: []types.CatCommand{
+			{
+				Name: cmd.Init.String(),
+				Cmd:  "AI1;ID;",
+			},
+			{
+				Name: cmd.Read.String(),
+				Cmd:  "FA;FB;ST;VS;MD0;MD1;PC;",
+			},
+			{
+				Name: cmd.PlayBack.String(),
+				Cmd:  "PB0%s;",
+			},
+		},
+		CatStates: []types.CatState{
+			{
+				Prefix: "ID",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.Identity.String(),
+						Index:  2,
+						Length: 4,
+						ValueMappings: []types.ValueMapping{
+							{
+								Key:   "0761",
+								Value: "FTdx10",
+							},
+						},
+					},
+				},
+			},
+			{
+				Prefix: "FA",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.VfoAFreq.String(),
+						Index:  2,
+						Length: 9,
+					},
+				},
+			},
+			{
+				Prefix: "FB",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.VfoBFreq.String(),
+						Index:  2,
+						Length: 9,
+					},
+				},
+			},
+			{
+				Prefix: "ST",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.Split.String(),
+						Index:  2,
+						Length: 1,
+						ValueMappings: []types.ValueMapping{
+							{
+								Key:   "0",
+								Value: "OFF",
+							},
+							{
+								Key:   "1",
+								Value: "ON",
+							},
+							{
+								Key:   "2",
+								Value: "ON+",
+							},
+						},
+					},
+				},
+			},
+			{
+				Prefix: "VS",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.Select.String(),
+						Index:  2,
+						Length: 1,
+						ValueMappings: []types.ValueMapping{
+							{
+								Key:   "0",
+								Value: "VFO-A",
+							},
+							{
+								Key:   "1",
+								Value: "VFO-B",
+							},
+						},
+					},
+				},
+			},
+			{
+				Prefix: "MD0",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.MainMode.String(),
+						Index:  3,
+						Length: 1,
+						ValueMappings: []types.ValueMapping{
+							{
+								Key:   "1",
+								Value: "LSB",
+							},
+							{
+								Key:   "2",
+								Value: "USB",
+							},
+							{
+								Key:   "3",
+								Value: "CW-U",
+							},
+							{
+								Key:   "4",
+								Value: "FM",
+							},
+							{
+								Key:   "5",
+								Value: "AM",
+							},
+							{
+								Key:   "6",
+								Value: "RTTY-L",
+							},
+							{
+								Key:   "7",
+								Value: "CW-L",
+							},
+							{
+								Key:   "8",
+								Value: "DATA-L",
+							},
+							{
+								Key:   "9",
+								Value: "RTTY-U",
+							},
+							{
+								Key:   "A",
+								Value: "DATA-FM",
+							},
+							{
+								Key:   "B",
+								Value: "FM-N",
+							},
+							{
+								Key:   "C",
+								Value: "DATA-U",
+							},
+							{
+								Key:   "D",
+								Value: "AM-N",
+							},
+							{
+								Key:   "E",
+								Value: "PSK",
+							},
+							{
+								Key:   "F",
+								Value: "DATA-FM-N",
+							},
+						},
+					},
+				},
+			},
+			{
+				Prefix: "MD1",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.SubMode.String(),
+						Index:  3,
+						Length: 1,
+						ValueMappings: []types.ValueMapping{
+							{
+								Key:   "1",
+								Value: "LSB",
+							},
+							{
+								Key:   "2",
+								Value: "USB",
+							},
+							{
+								Key:   "3",
+								Value: "CW-U",
+							},
+							{
+								Key:   "4",
+								Value: "FM",
+							},
+							{
+								Key:   "5",
+								Value: "AM",
+							},
+							{
+								Key:   "6",
+								Value: "RTTY-L",
+							},
+							{
+								Key:   "7",
+								Value: "CW-L",
+							},
+							{
+								Key:   "8",
+								Value: "DATA-L",
+							},
+							{
+								Key:   "9",
+								Value: "RTTY-U",
+							},
+							{
+								Key:   "A",
+								Value: "DATA-FM",
+							},
+							{
+								Key:   "B",
+								Value: "FM-N",
+							},
+							{
+								Key:   "C",
+								Value: "DATA-U",
+							},
+							{
+								Key:   "D",
+								Value: "AM-N",
+							},
+							{
+								Key:   "E",
+								Value: "PSK",
+							},
+							{
+								Key:   "F",
+								Value: "DATA-FM-N",
+							},
+						},
+					},
+				},
+			},
+			{
+				Prefix: "PC",
+				Markers: []types.Marker{
+					{
+						Tag:    ans.TxPwr.String(),
+						Index:  2,
+						Length: 3,
+					},
+				},
+			},
+		},
+		CatConfig: types.CatConfig{
+			RateLimiterInterval:      20 * time.Millisecond,
+			ReadBufferSize:           1024,
+			CmdChannelSize:           1000,            // Max allowed by validation: 1000
+			ReplyChannelSize:         1000,            // Max allowed by validation: 1000
+			StatusChannelSize:        1,               // Setting this to '0' will cause the channel to be unbuffered!
+			CommandTimeout:           5 * time.Second, // Timeout for command responses (0 = no timeout)
+			RateLimiterCmdsPerSecond: 10,              // Max commands per second (min 1, max 20 by validation)
+			Reconnection: types.ReconnectConfig{
+				Enabled:             true,                   // Enable automatic reconnection by default
+				MaxRetries:          5,                      // Retry up to 5 times before giving up
+				InitialBackoff:      1 * time.Second,        // Start with 1 second delay (reduced for faster recovery)
+				MaxBackoff:          60 * time.Second,       // Cap backoff at 1 minute
+				BackoffMultiplier:   2.0,                    // Double the delay each time
+				HealthCheckInterval: 500 * time.Millisecond, // Check connection health twice per second
+				FailureThreshold:    2,                      // Trigger reconnection after 2 consecutive failures (1 second total)
+				RecoveryThreshold:   2,                      // Consider healthy after 2 consecutive successes
+			},
+		},
 	},
 }

@@ -38,7 +38,7 @@ func (s *Service) Initialize() error {
 		}
 
 		// If a LoggingConfig has been pre-seeded (common in tests), preserve it
-		// while still loading remaining configuration from disk.
+		// while still loading the remaining configuration from disk.
 		preseedLogCfg := s.AppConfig.LoggingConfig
 
 		if err = s.loadConfigFile(); err != nil {
@@ -103,4 +103,39 @@ func (s *Service) ServerConfig() (types.ServerConfig, error) {
 	}
 
 	return s.AppConfig.ServerConfig, nil
+}
+
+func (s *Service) RequiredConfigs() (types.RequiredConfigs, error) {
+	const op errors.Op = "config.Service.RequiredConfigs"
+	emptyRetVal := types.RequiredConfigs{}
+	if s == nil {
+		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
+	}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	return s.AppConfig.RequiredConfigs, nil
+}
+
+func (s *Service) RigConfigByID(rigID int64) (types.RigConfig, error) {
+	const op errors.Op = "config.Service.RigConfigByID"
+	emptyRetVal := types.RigConfig{}
+	if s == nil {
+		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
+	}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+	if rigID == 0 {
+		return emptyRetVal, errors.New(op).Errorf("Invalid rig ID: %d", rigID)
+	}
+
+	for _, rig := range s.AppConfig.RigConfigs {
+		if rig.ID == rigID {
+			return rig, nil
+		}
+	}
+
+	return emptyRetVal, nil
 }
