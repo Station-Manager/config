@@ -92,16 +92,16 @@ var defaultRigConfigs = []types.RigConfig{
 		Name:  "FTdx10",
 		Model: "Yaesu FTdx10",
 		SerialConfig: types.SerialConfig{
-			PortName:      "/dev/ttyUSB0",
-			BaudRate:      38400,
-			DataBits:      8,
-			Parity:        0,
-			StopBits:      0,
-			ReadTimeout:   150,
-			WriteTimeout:  300,
-			RTS:           true,
-			DTR:           true,
-			LineDelimiter: ';',
+			PortName:       "/dev/ttyUSB0",
+			BaudRate:       38400,
+			DataBits:       8,
+			Parity:         0,
+			StopBits:       0,
+			ReadTimeoutms:  150, // Used for context timeout as well as setting on the port
+			WriteTimeoutms: 300,
+			RTS:            true,
+			DTR:            true,
+			LineDelimiter:  ';',
 		},
 		CatCommands: []types.CatCommand{
 			{
