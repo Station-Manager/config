@@ -362,7 +362,8 @@ var defaultRigConfigs = []types.RigConfig{
 			// to be <= ListenerRateLimiterInterval and may match SerialConfig.ReadTimeoutMS.
 			ListenerReadTimeoutMS: 200,
 
-			SendChannelSize: 10,
+			SendChannelSize:       10,
+			ProcessingChannelSize: 10,
 		},
 	},
 }
