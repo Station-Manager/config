@@ -4,7 +4,6 @@ import (
 	"github.com/Station-Manager/cat/enums/ans"
 	"github.com/Station-Manager/cat/enums/cmd"
 	"github.com/Station-Manager/types"
-	"time"
 )
 
 var postgresConfig = types.DatastoreConfig{
@@ -97,8 +96,8 @@ var defaultRigConfigs = []types.RigConfig{
 			DataBits:       8,
 			Parity:         0,
 			StopBits:       0,
-			ReadTimeoutms:  150, // Used for context timeout as well as setting on the port
-			WriteTimeoutms: 300,
+			ReadTimeoutMS:  200, // Per-read timeout on the serial driver; size this <= ListenerRateLimiterInterval
+			WriteTimeoutMS: 300,
 			RTS:            true,
 			DTR:            true,
 			LineDelimiter:  ';',
@@ -354,13 +353,14 @@ var defaultRigConfigs = []types.RigConfig{
 			},
 		},
 		CatConfig: types.CatConfig{
-			RateLimiterInterval:      20 * time.Millisecond,
-			ReadBufferSize:           1024,
-			CmdChannelSize:           1000,            // Max allowed by validation: 1000
-			ReplyChannelSize:         1000,            // Max allowed by validation: 1000
-			StatusChannelSize:        1,               // Setting this to '0' will cause the channel to be unbuffered!
-			CommandTimeout:           5 * time.Second, // Timeout for command responses (0 = no timeout)
-			RateLimiterCmdsPerSecond: 10,              // Max commands per second (min 1, max 20 by validation)
+			// ListenerRateLimiterInterval controls how often the CAT listener polls the serial port.
+			// It should be greater than or equal to ListenerReadTimeoutMS, so each tick's read
+			// can complete or time out before the next tick fires.
+			ListenerRateLimiterInterval: 250,
+			// ListenerReadTimeoutMS is the per-tick timeout used by the CAT listener when
+			// waiting for a framed response from the serial client. This is typically sized
+			// to be <= ListenerRateLimiterInterval and may match SerialConfig.ReadTimeoutMS.
+			ListenerReadTimeoutMS: 200,
 		},
 	},
 }
