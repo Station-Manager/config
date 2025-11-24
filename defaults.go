@@ -361,6 +361,8 @@ var defaultRigConfigs = []types.RigConfig{
 			// waiting for a framed response from the serial client. This is typically sized
 			// to be <= ListenerRateLimiterInterval and may match SerialConfig.ReadTimeoutMS.
 			ListenerReadTimeoutMS: 200,
+
+			SendChannelSize: 10,
 		},
 	},
 }
