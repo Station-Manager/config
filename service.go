@@ -125,3 +125,34 @@ func (s *Service) RigConfigByID(rigID int64) (types.RigConfig, error) {
 
 	return emptyRetVal, nil
 }
+
+// CatStateValues retrieves the CAT state values for the default rig configuration in the service's application configuration.
+// Returns a map of state values organized by tags or an error if the service is uninitialized or fails to retrieve the configuration.
+func (s *Service) CatStateValues() (types.StateValues, error) {
+	const op errors.Op = "config.Service.CatStateValues"
+
+	if !s.isInitialized.Load() {
+		return nil, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	stateValues := make(types.StateValues)
+	rigConfig, err := s.RigConfigByID(s.AppConfig.RequiredConfigs.DefaultRigID)
+	if err != nil {
+		return nil, errors.New(op).Err(err)
+	}
+
+	for _, state := range rigConfig.CatStates {
+		for _, marker := range state.Markers {
+			if len(marker.ValueMappings) == 0 {
+				continue
+			}
+			values := make(map[string]string, len(marker.ValueMappings))
+			for _, mapping := range marker.ValueMappings {
+				values[mapping.Key] = mapping.Value
+			}
+			stateValues[marker.Tag] = values
+		}
+	}
+
+	return stateValues, nil
+}
