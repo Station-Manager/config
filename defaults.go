@@ -71,7 +71,7 @@ var defaultServerConfig = types.AppConfig{
 		ShutdownTimeoutWarning: false,
 	},
 	RequiredConfigs: types.RequiredConfigs{},
-	ServerConfig: types.ServerConfig{
+	ServerConfig: &types.ServerConfig{
 		Name:         "Station Manager",
 		Port:         3000,
 		ReadTimeout:  5,       // Seconds
@@ -122,7 +122,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.Identity.String(),
-						Index:  2,
+						Index:  0,
 						Length: 4,
 						ValueMappings: []types.ValueMapping{
 							{
@@ -138,7 +138,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.VfoAFreq.String(),
-						Index:  2,
+						Index:  0,
 						Length: 9,
 					},
 				},
@@ -148,7 +148,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.VfoBFreq.String(),
-						Index:  2,
+						Index:  0,
 						Length: 9,
 					},
 				},
@@ -158,7 +158,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.Split.String(),
-						Index:  2,
+						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
 							{
@@ -182,7 +182,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.Select.String(),
-						Index:  2,
+						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
 							{
@@ -202,7 +202,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.MainMode.String(),
-						Index:  3,
+						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
 							{
@@ -274,7 +274,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.SubMode.String(),
-						Index:  3,
+						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
 							{
@@ -346,7 +346,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Markers: []types.Marker{
 					{
 						Tag:    ans.TxPwr.String(),
-						Index:  2,
+						Index:  0,
 						Length: 3,
 					},
 				},
