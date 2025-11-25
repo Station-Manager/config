@@ -1,4 +1,4 @@
-# Config
+# Station Manager: config package
 
 Service responsible for loading and exposing application configuration.
 
