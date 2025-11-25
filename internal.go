@@ -11,9 +11,6 @@ import (
 
 func (s *Service) loadConfigFile() error {
 	const op errors.Op = "config.Service.loadConfigFile"
-	if s == nil {
-		return errors.New(op).Msg(errMsgNilService)
-	}
 
 	filePath := filepath.Join(s.WorkingDir, configFileName)
 	exists, err := utils.PathExists(filePath)
@@ -41,9 +38,6 @@ func (s *Service) loadConfigFile() error {
 
 func (s *Service) generateDefaultConfig() error {
 	const op errors.Op = "config.Service.generateDefaultConfig"
-	if s == nil {
-		return errors.New(op).Msg(errMsgNilService)
-	}
 
 	// Decide which datastore config to embed based on env
 	selected := defaultDesktopConfig // start with sqlite default
@@ -51,16 +45,6 @@ func (s *Service) generateDefaultConfig() error {
 		if dbSel == "postgres" || dbSel == "postgresql" || dbSel == "pg" {
 			selected = defaultServerConfig
 		}
-		//	selected.DatastoreConfig = postgr{}
-		//switch dbSel {
-		//case "postgres", "postgresql", "pg":
-		//	selected.DatastoreConfig = postgresConfig
-		//case "sqlite", "sqlite3":
-		//	// already sqlite; explicitly set for clarity
-		//	selected.DatastoreConfig = sqliteConfig
-		//default:
-		//	// Unknown selector: leave default (sqlite). Could log later if logging available.
-		//}
 	}
 
 	// Pretty-print selected configuration for readability

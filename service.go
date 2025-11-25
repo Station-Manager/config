@@ -19,9 +19,6 @@ type Service struct {
 // Initialize initializes the config service.
 func (s *Service) Initialize() error {
 	const op errors.Op = "config.Service.Initialize"
-	if s == nil {
-		return errors.New(op).Msg(errMsgNilService)
-	}
 
 	if s.isInitialized.Load() {
 		return nil // Exit gracefully
@@ -67,9 +64,7 @@ func (s *Service) Initialize() error {
 func (s *Service) DatastoreConfig() (types.DatastoreConfig, error) {
 	const op errors.Op = "config.Service.DatastoreConfig"
 	emptyRetVal := types.DatastoreConfig{}
-	if s == nil {
-		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
-	}
+
 	if !s.isInitialized.Load() {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
@@ -81,9 +76,7 @@ func (s *Service) DatastoreConfig() (types.DatastoreConfig, error) {
 func (s *Service) LoggingConfig() (types.LoggingConfig, error) {
 	const op errors.Op = "config.Service.LoggingConfig"
 	emptyRetVal := types.LoggingConfig{}
-	if s == nil {
-		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
-	}
+
 	if !s.isInitialized.Load() {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
@@ -95,9 +88,7 @@ func (s *Service) LoggingConfig() (types.LoggingConfig, error) {
 func (s *Service) ServerConfig() (types.ServerConfig, error) {
 	const op errors.Op = "config.Service.ServerConfig"
 	emptyRetVal := types.ServerConfig{}
-	if s == nil {
-		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
-	}
+
 	if !s.isInitialized.Load() {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
@@ -119,9 +110,7 @@ func (s *Service) RequiredConfigs() (types.RequiredConfigs, error) {
 func (s *Service) RigConfigByID(rigID int64) (types.RigConfig, error) {
 	const op errors.Op = "config.Service.RigConfigByID"
 	emptyRetVal := types.RigConfig{}
-	if s == nil {
-		return emptyRetVal, errors.New(op).Msg(errMsgNilService)
-	}
+
 	if !s.isInitialized.Load() {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
