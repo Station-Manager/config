@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/Station-Manager/cat/enums/ans"
-	"github.com/Station-Manager/cat/enums/cmd"
+	"github.com/Station-Manager/enums/cmds"
+	"github.com/Station-Manager/enums/tags"
 	"github.com/Station-Manager/types"
 )
 
@@ -104,15 +104,15 @@ var defaultRigConfigs = []types.RigConfig{
 		},
 		CatCommands: []types.CatCommand{
 			{
-				Name: cmd.Init.String(),
+				Name: cmds.Init.String(),
 				Cmd:  "AI1;ID;",
 			},
 			{
-				Name: cmd.Read.String(),
+				Name: cmds.Read.String(),
 				Cmd:  "FA;FB;ST;VS;MD0;MD1;PC;",
 			},
 			{
-				Name: cmd.PlayBack.String(),
+				Name: cmds.PlayBack.String(),
 				Cmd:  "PB0%s;",
 			},
 		},
@@ -121,7 +121,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "ID",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.Identity.String(),
+						Tag:    tags.Identity.String(),
 						Index:  0,
 						Length: 4,
 						ValueMappings: []types.ValueMapping{
@@ -137,7 +137,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "FA",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.VfoAFreq.String(),
+						Tag:    tags.VfoAFreq.String(),
 						Index:  0,
 						Length: 9,
 					},
@@ -147,7 +147,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "FB",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.VfoBFreq.String(),
+						Tag:    tags.VfoBFreq.String(),
 						Index:  0,
 						Length: 9,
 					},
@@ -157,7 +157,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "ST",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.Split.String(),
+						Tag:    tags.Split.String(),
 						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
@@ -181,7 +181,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "VS",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.Select.String(),
+						Tag:    tags.Select.String(),
 						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
@@ -201,7 +201,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "MD0",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.MainMode.String(),
+						Tag:    tags.MainMode.String(),
 						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
@@ -273,7 +273,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "MD1",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.SubMode.String(),
+						Tag:    tags.SubMode.String(),
 						Index:  0,
 						Length: 1,
 						ValueMappings: []types.ValueMapping{
@@ -345,7 +345,7 @@ var defaultRigConfigs = []types.RigConfig{
 				Prefix: "PC",
 				Markers: []types.Marker{
 					{
-						Tag:    ans.TxPwr.String(),
+						Tag:    tags.TxPwr.String(),
 						Index:  0,
 						Length: 3,
 					},
