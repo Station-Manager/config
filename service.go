@@ -156,3 +156,13 @@ func (s *Service) CatStateValues() (types.StateValues, error) {
 
 	return stateValues, nil
 }
+
+func (s *Service) LoggingStationConfigs() (types.LoggingStation, error) {
+	const op errors.Op = "config.Service.LoggingStationConfigs"
+	emptyRetVal := types.LoggingStation{}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	return s.AppConfig.LoggingStation, nil
+}
