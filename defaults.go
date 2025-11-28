@@ -96,8 +96,8 @@ var defaultRigConfigs = []types.RigConfig{
 			DataBits:       8,
 			Parity:         0,
 			StopBits:       0,
-			ReadTimeoutMS:  200, // Per-read timeout on the serial driver; size this <= ListenerRateLimiterInterval
-			WriteTimeoutMS: 300,
+			ReadTimeoutMS:  8, // Per-read timeout on the serial driver; size this <= ListenerRateLimiterIntervalMS
+			WriteTimeoutMS: 20,
 			RTS:            true,
 			DTR:            true,
 			LineDelimiter:  ';',
@@ -356,11 +356,11 @@ var defaultRigConfigs = []types.RigConfig{
 			// ListenerRateLimiterInterval controls how often the CAT listener polls the serial port.
 			// It should be greater than or equal to ListenerReadTimeoutMS, so each tick's read
 			// can complete or time out before the next tick fires.
-			ListenerRateLimiterInterval: 250,
+			ListenerRateLimiterIntervalMS: 10,
 			// ListenerReadTimeoutMS is the per-tick timeout used by the CAT listener when
 			// waiting for a framed response from the serial client. This is typically sized
 			// to be <= ListenerRateLimiterInterval and may match SerialConfig.ReadTimeoutMS.
-			ListenerReadTimeoutMS: 200,
+			ListenerReadTimeoutMS: 8,
 
 			SendChannelSize:       10,
 			ProcessingChannelSize: 10,
