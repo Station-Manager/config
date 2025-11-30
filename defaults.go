@@ -37,7 +37,6 @@ var sqliteConfig = types.DatastoreConfig{
 }
 
 var defaultDesktopConfig = types.AppConfig{
-	DatastoreConfig: sqliteConfig,
 	LoggingConfig: types.LoggingConfig{
 		Level:                  "info",
 		WithTimestamp:          true,
@@ -51,8 +50,10 @@ var defaultDesktopConfig = types.AppConfig{
 		ShutdownTimeoutMS:      10000,
 		ShutdownTimeoutWarning: false,
 	},
-	RequiredConfigs: defaultRequiredConfigs,
-	RigConfigs:      defaultRigConfigs,
+	DatastoreConfig:      sqliteConfig,
+	RequiredConfigs:      defaultRequiredConfigs,
+	RigConfigs:           defaultRigConfigs,
+	LookupServiceConfigs: defaultLookupServiceConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -367,5 +368,15 @@ var defaultRigConfigs = []types.RigConfig{
 			SendChannelSize:       10,
 			ProcessingChannelSize: 10,
 		},
+	},
+}
+
+var defaultLookupServiceConfigs = []types.LookupConfig{
+	{
+		Name:        types.HamNutLookupServiceName,
+		URL:         "https://api.hamnut.com/v1/call-signs/prefixes",
+		Enabled:     true,
+		HttpTimeout: 20, // Seconds
+		UserAgent:   userAgent,
 	},
 }

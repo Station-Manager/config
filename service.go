@@ -4,6 +4,7 @@ import (
 	"github.com/Station-Manager/errors"
 	"github.com/Station-Manager/types"
 	"github.com/Station-Manager/utils"
+	"strings"
 	"sync"
 	"sync/atomic"
 )
@@ -165,4 +166,25 @@ func (s *Service) LoggingStationConfigs() (types.LoggingStation, error) {
 	}
 
 	return s.AppConfig.LoggingStation, nil
+}
+
+func (s *Service) LookupServiceConfig(serviceName string) (types.LookupConfig, error) {
+	const op errors.Op = "config.Service.LookupServiceConfig"
+	emptyRetVal := types.LookupConfig{}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	serviceName = strings.TrimSpace(serviceName)
+	if serviceName == "" {
+		return emptyRetVal, errors.New(op).Msg("service name cannot be empty")
+	}
+
+	for _, cfg := range s.AppConfig.LookupServiceConfigs {
+		if cfg.Name == serviceName {
+			return cfg, nil
+		}
+	}
+
+	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
 }
