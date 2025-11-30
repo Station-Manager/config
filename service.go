@@ -14,7 +14,6 @@ type Service struct {
 	AppConfig     types.AppConfig
 	isInitialized atomic.Bool
 	initOnce      sync.Once
-	initErr       error
 }
 
 // Initialize initializes the config service.
@@ -25,12 +24,14 @@ func (s *Service) Initialize() error {
 		return nil // Exit gracefully
 	}
 
+	var initErr error
 	s.initOnce.Do(func() {
 		var err error
+
 		// This is for situation where the service is not built with an IOCDI container.
 		if s.WorkingDir == "" {
 			if s.WorkingDir, err = utils.WorkingDir(s.WorkingDir); err != nil {
-				s.initErr = errors.New(op).Err(err).Msg(errMsgWorkingDir)
+				initErr = errors.New(op).Err(err).Msg(errMsgWorkingDir)
 				return
 			}
 		}
@@ -40,7 +41,7 @@ func (s *Service) Initialize() error {
 		preseedLogCfg := s.AppConfig.LoggingConfig
 
 		if err = s.loadConfigFile(); err != nil {
-			s.initErr = errors.New(op).Err(err)
+			initErr = errors.New(op).Err(err)
 			return
 		}
 
@@ -51,14 +52,14 @@ func (s *Service) Initialize() error {
 
 		// Early validation of loaded configuration
 		if err = validateAppConfig(&s.AppConfig); err != nil {
-			s.initErr = errors.New(op).Err(err)
+			initErr = errors.New(op).Err(err)
 			return
 		}
 
 		s.isInitialized.Store(true)
 	})
 
-	return s.initErr
+	return initErr
 }
 
 // DatastoreConfig returns the datastore configuration.
