@@ -376,7 +376,16 @@ var defaultLookupServiceConfigs = []types.LookupConfig{
 		Name:        types.HamNutLookupServiceName,
 		URL:         "https://api.hamnut.com/v1/call-signs/prefixes",
 		Enabled:     true,
-		HttpTimeout: 20, // Seconds
+		HttpTimeout: 5, // Seconds
+		UserAgent:   userAgent,
+	},
+	{
+		Name:        types.QrzLookupServiceName,
+		URL:         "https://xmldata.qrz.com/xml/current/",
+		Username:    "?",
+		Password:    "?",
+		Enabled:     true,
+		HttpTimeout: 5, // Seconds
 		UserAgent:   userAgent,
 	},
 }
