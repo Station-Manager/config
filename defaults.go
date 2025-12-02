@@ -54,6 +54,7 @@ var defaultDesktopConfig = types.AppConfig{
 	RequiredConfigs:      defaultRequiredConfigs,
 	RigConfigs:           defaultRigConfigs,
 	LookupServiceConfigs: defaultLookupServiceConfigs,
+	LoggingStation:       defaultLoggingStationDetails,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -388,4 +389,30 @@ var defaultLookupServiceConfigs = []types.LookupConfig{
 		HttpTimeout: 5, // Seconds
 		UserAgent:   userAgent,
 	},
+}
+
+var defaultLoggingStationDetails = types.LoggingStation{
+	AntennaAzimuth:  "",
+	MyAltitude:      "",
+	MyAntenna:       "",
+	MyCity:          "",
+	MyCountry:       "",
+	MyCqZone:        "",
+	MyDXCC:          "",
+	MyGridsquare:    "",
+	MyIota:          "",
+	MyIotaIslandID:  "",
+	MyITUZone:       "",
+	MyLat:           "",
+	MyLon:           "",
+	MyMorseKeyInfo:  "",
+	MyMorseKeyType:  "",
+	MyName:          "",
+	MyPostalCode:    "",
+	MyRig:           "",
+	MyStreet:        "",
+	MyWwffRef:       "",
+	Operator:        "",
+	OwnerCallsign:   "",
+	StationCallsign: "",
 }
