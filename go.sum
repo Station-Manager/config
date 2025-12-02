@@ -2,8 +2,8 @@ github.com/Station-Manager/enums v0.0.1 h1:eQSGIscQpxUy7npIMMUKEiOswdxdXTv02Mw7c
 github.com/Station-Manager/enums v0.0.1/go.mod h1:+DM4D5iPVIXyaflzHsBVQQb5DnBnL0iYNaddkKiBdao=
 github.com/Station-Manager/errors v0.0.9 h1:sAKBZ45jPT4NRdwlzdPgjJME608Y8RZn2uqoaG4h3/A=
 github.com/Station-Manager/errors v0.0.9/go.mod h1:yedsGkIKLyDEUhkm7VrjwE2Qq6Jdlq0MpwEjdDhBwh0=
-github.com/Station-Manager/types v0.0.36 h1:h5WGNfuJLeG5AYu2QD6k7JGGCeGBLc2uTdiRdHcUgD8=
-github.com/Station-Manager/types v0.0.36/go.mod h1:SKTlS1jFqeDUcHGJIxUud4ITUxp1daeezEQ85UTJFXg=
+github.com/Station-Manager/types v0.0.37 h1:cWn6lihW0x37PlUgHfKsXqcvrgqc9KVqdgxqmiWfagg=
+github.com/Station-Manager/types v0.0.37/go.mod h1:SKTlS1jFqeDUcHGJIxUud4ITUxp1daeezEQ85UTJFXg=
 github.com/Station-Manager/utils v0.0.2 h1:/YHe/Yvx03eTBoBoSN2YnyEF/Zy67NKeahRcapkfqLQ=
 github.com/Station-Manager/utils v0.0.2/go.mod h1:6J2fGU4xpoe1PpLEWfgUs8fjKp/+v7wCzpvek2jiWpI=
 github.com/creack/goselect v0.1.3 h1:MaGNMclRo7P2Jl21hBpR1Cn33ITSbKP6E49RtfblLKc=
