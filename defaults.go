@@ -84,9 +84,10 @@ var defaultServerConfig = types.AppConfig{
 }
 
 var defaultRequiredConfigs = types.RequiredConfigs{
-	DefaultRigID: 1,
-	DefaultFreq:  "014320000",
-	DefaultMode:  "USB",
+	DefaultRigID:       1,
+	DefaultFreq:        "014320000",
+	DefaultMode:        "USB",
+	DefaultIsRandomQso: true,
 }
 
 var defaultRigConfigs = []types.RigConfig{
