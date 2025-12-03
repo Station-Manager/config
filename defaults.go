@@ -88,6 +88,8 @@ var defaultRequiredConfigs = types.RequiredConfigs{
 	DefaultFreq:        "014320000",
 	DefaultMode:        "USB",
 	DefaultIsRandomQso: true,
+	DefaultTxPower:     50,
+	PowerMultiplier:    1, // 1 equals no power multiplier
 }
 
 var defaultRigConfigs = []types.RigConfig{
