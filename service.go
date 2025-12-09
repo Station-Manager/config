@@ -189,3 +189,24 @@ func (s *Service) LookupServiceConfig(serviceName string) (types.LookupConfig, e
 
 	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
 }
+
+func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, error) {
+	const op errors.Op = "config.Service.ForwarderConfig"
+	emptyRetVal := types.ForwarderConfig{}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	serviceName = strings.TrimSpace(serviceName)
+	if serviceName == "" {
+		return emptyRetVal, errors.New(op).Msg("service name cannot be empty")
+	}
+
+	for _, cfg := range s.AppConfig.ForwardingConfigs {
+		if cfg.Name == serviceName {
+			return cfg, nil
+		}
+	}
+
+	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
+}
