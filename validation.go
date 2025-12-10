@@ -15,11 +15,11 @@ func validateAppConfig(cfg *types.AppConfig) error {
 
 	db := cfg.DatastoreConfig
 	switch db.Driver {
-	case types.SqliteServiceName:
+	case types.SqliteDriverName:
 		if db.Path == "" {
 			return errors.New(op).Msg("sqlite path is required")
 		}
-	case types.PostgresServiceName:
+	case types.PostgresDriverName:
 		// Be permissive here; database service will perform full validation later.
 		// Just accept the driver selection.
 		_ = db

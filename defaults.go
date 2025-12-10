@@ -7,7 +7,7 @@ import (
 )
 
 var postgresConfig = types.DatastoreConfig{
-	Driver:                    "postgres",
+	Driver:                    types.PostgresDriverName,
 	Host:                      "localhost",
 	Port:                      5432,
 	Database:                  "station_manager",
@@ -24,7 +24,7 @@ var postgresConfig = types.DatastoreConfig{
 }
 
 var sqliteConfig = types.DatastoreConfig{
-	Driver:                    "sqlite",
+	Driver:                    types.SqliteDriverName,
 	Path:                      "db/data.db",
 	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "5000"},
 	Debug:                     false,

@@ -28,8 +28,8 @@ func TestInitialize_createsDefaultConfig(t *testing.T) {
 	if err != nil {
 		t.Fatalf("DatastoreConfig() error = %v", err)
 	}
-	if dbCfg.Driver != types.SqliteServiceName {
-		t.Errorf("expected default driver %q, got %q", types.SqliteServiceName, dbCfg.Driver)
+	if dbCfg.Driver != types.SqliteDriverName {
+		t.Errorf("expected default driver %q, got %q", types.SqliteDriverName, dbCfg.Driver)
 	}
 
 	logCfg, err := svc.LoggingConfig()
@@ -88,8 +88,8 @@ func TestInitialize_envSelectsSqlite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("DatastoreConfig() error = %v", err)
 	}
-	if dbCfg.Driver != types.SqliteServiceName {
-		t.Errorf("expected driver %q, got %q", types.SqliteServiceName, dbCfg.Driver)
+	if dbCfg.Driver != types.SqliteDriverName {
+		t.Errorf("expected driver %q, got %q", types.SqliteDriverName, dbCfg.Driver)
 	}
 }
 
@@ -109,7 +109,7 @@ func TestInitialize_envSelectsPostgres(t *testing.T) {
 	if err != nil {
 		t.Fatalf("DatastoreConfig() error = %v", err)
 	}
-	if dbCfg.Driver != types.PostgresServiceName {
-		t.Errorf("expected driver %q, got %q", types.PostgresServiceName, dbCfg.Driver)
+	if dbCfg.Driver != types.PostgresDriverName {
+		t.Errorf("expected driver %q, got %q", types.PostgresDriverName, dbCfg.Driver)
 	}
 }
