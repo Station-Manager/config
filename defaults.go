@@ -360,6 +360,7 @@ var defaultRigConfigs = []types.RigConfig{
 			},
 		},
 		CatConfig: types.CatConfig{
+			Enabled: true,
 			// ListenerRateLimiterInterval controls how often the CAT listener polls the serial port.
 			// It should be greater than or equal to ListenerReadTimeoutMS, so each tick's read
 			// can complete or time out before the next tick fires.
