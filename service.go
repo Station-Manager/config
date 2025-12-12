@@ -1,12 +1,13 @@
 package config
 
 import (
-	"github.com/Station-Manager/errors"
-	"github.com/Station-Manager/types"
-	"github.com/Station-Manager/utils"
 	"strings"
 	"sync"
 	"sync/atomic"
+
+	"github.com/Station-Manager/errors"
+	"github.com/Station-Manager/types"
+	"github.com/Station-Manager/utils"
 )
 
 type Service struct {
@@ -159,6 +160,7 @@ func (s *Service) CatStateValues() (types.StateValues, error) {
 	return stateValues, nil
 }
 
+// LoggingStationConfigs retrieves the logging station configuration from the service's application configuration.
 func (s *Service) LoggingStationConfigs() (types.LoggingStation, error) {
 	const op errors.Op = "config.Service.LoggingStationConfigs"
 	emptyRetVal := types.LoggingStation{}
@@ -169,6 +171,7 @@ func (s *Service) LoggingStationConfigs() (types.LoggingStation, error) {
 	return s.AppConfig.LoggingStation, nil
 }
 
+// LookupServiceConfig fetches the configuration for a given service by its name from the loaded application settings.
 func (s *Service) LookupServiceConfig(serviceName string) (types.LookupConfig, error) {
 	const op errors.Op = "config.Service.LookupServiceConfig"
 	emptyRetVal := types.LookupConfig{}
@@ -190,6 +193,8 @@ func (s *Service) LookupServiceConfig(serviceName string) (types.LookupConfig, e
 	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
 }
 
+// ForwarderConfig retrieves the forwarder configuration for the specified service name.
+// Returns a ForwarderConfig object and nil error if found, otherwise returns an empty object and an appropriate error.
 func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, error) {
 	const op errors.Op = "config.Service.ForwarderConfig"
 	emptyRetVal := types.ForwarderConfig{}
@@ -209,4 +214,14 @@ func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, er
 	}
 
 	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
+}
+
+// EmailConfig retrieves the email configuration from the application configuration. Returns an error if uninitialized.
+func (s *Service) EmailConfig() (types.EmailConfig, error) {
+	const op errors.Op = "config.Service.EmailConfig"
+	emptyRetVal := types.EmailConfig{}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+	return s.AppConfig.EmailConfigs, nil
 }
