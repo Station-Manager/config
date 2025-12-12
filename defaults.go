@@ -55,6 +55,7 @@ var defaultDesktopConfig = types.AppConfig{
 	RigConfigs:           defaultRigConfigs,
 	LookupServiceConfigs: defaultLookupServiceConfigs,
 	LoggingStation:       defaultLoggingStationDetails,
+	EmailConfigs:         defaultEmailConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -419,4 +420,17 @@ var defaultLoggingStationDetails = types.LoggingStation{
 	Operator:        "",
 	OwnerCallsign:   "",
 	StationCallsign: "",
+}
+
+var defaultEmailConfigs = types.EmailConfig{
+	Name:     types.EmailServiceName,
+	Enabled:  false,
+	Username: "?",
+	Password: "?",
+	Host:     "?",
+	Port:     587,
+	From:     "?",
+	To:       "?",
+	Subject:  "",
+	Body:     "",
 }
