@@ -423,14 +423,17 @@ var defaultLoggingStationDetails = types.LoggingStation{
 }
 
 var defaultEmailConfigs = types.EmailConfig{
-	Name:     types.EmailServiceName,
-	Enabled:  false,
-	Username: "?",
-	Password: "?",
-	Host:     "?",
-	Port:     587,
-	From:     "?",
-	To:       "?",
-	Subject:  "",
-	Body:     "",
+	Name:               types.EmailServiceName,
+	Enabled:            false,
+	Username:           "?",
+	Password:           "?",
+	Host:               "?",
+	Port:               587,
+	From:               "?",
+	To:                 "?",
+	Subject:            "",
+	Body:               "",
+	SmtpDialTimeoutSec: 10,
+	SmtpRetryCount:     0,
+	SmtpRetryDelaySec:  0,
 }
