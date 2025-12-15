@@ -85,12 +85,13 @@ var defaultServerConfig = types.AppConfig{
 }
 
 var defaultRequiredConfigs = types.RequiredConfigs{
-	DefaultRigID:       1,
-	DefaultFreq:        "14.300.000",
-	DefaultMode:        "USB",
-	DefaultIsRandomQso: true,
-	DefaultTxPower:     50,
-	PowerMultiplier:    1, // 1 equals no power multiplier
+	DefaultRigID:                 1,
+	DefaultFreq:                  "14.300.000",
+	DefaultMode:                  "USB",
+	DefaultIsRandomQso:           true,
+	DefaultTxPower:               50,
+	PowerMultiplier:              1,  // 1 equals no power multiplier
+	QsoForwardingIntervalSeconds: 30, // Poll every 30 seconds
 }
 
 var defaultRigConfigs = []types.RigConfig{
