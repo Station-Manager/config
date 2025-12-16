@@ -34,6 +34,7 @@ var sqliteConfig = types.DatastoreConfig{
 	ConnMaxIdleTime:           5,  // Minutes
 	ContextTimeout:            5,  // Seconds
 	TransactionContextTimeout: 10, // Seconds
+	QsoForwardingRowLimit:     5,
 }
 
 var defaultDesktopConfig = types.AppConfig{
