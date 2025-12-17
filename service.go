@@ -216,6 +216,10 @@ func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, er
 	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
 }
 
+func (s *Service) ForwarderConfigs() ([]types.ForwarderConfig, error) {
+	return s.AppConfig.ForwardingConfigs, nil
+}
+
 // EmailConfig retrieves the email configuration from the application configuration. Returns an error if uninitialized.
 func (s *Service) EmailConfig() (types.EmailConfig, error) {
 	const op errors.Op = "config.Service.EmailConfig"
