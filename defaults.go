@@ -86,6 +86,7 @@ var defaultServerConfig = types.AppConfig{
 }
 
 var defaultRequiredConfigs = types.RequiredConfigs{
+	DefaultLogbookID:             1,
 	DefaultRigID:                 1,
 	DefaultFreq:                  "14.300.000",
 	DefaultMode:                  "USB",
