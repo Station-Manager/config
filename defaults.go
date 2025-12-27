@@ -57,6 +57,7 @@ var defaultDesktopConfig = types.AppConfig{
 	LookupServiceConfigs: defaultLookupServiceConfigs,
 	LoggingStation:       defaultLoggingStationDetails,
 	EmailConfigs:         defaultEmailConfigs,
+	ForwardingConfigs:    defaultForwardingConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -384,7 +385,7 @@ var defaultLookupServiceConfigs = []types.LookupConfig{
 	{
 		Name:        types.HamNutLookupServiceName,
 		URL:         "https://api.hamnut.com/v1/call-signs/prefixes",
-		Enabled:     true,
+		Enabled:     false,
 		HttpTimeout: 5, // Seconds
 		UserAgent:   userAgent,
 	},
@@ -393,7 +394,7 @@ var defaultLookupServiceConfigs = []types.LookupConfig{
 		URL:         "https://xmldata.qrz.com/xml/current/",
 		Username:    "?",
 		Password:    "?",
-		Enabled:     true,
+		Enabled:     false,
 		HttpTimeout: 5, // Seconds
 		UserAgent:   userAgent,
 	},
@@ -439,4 +440,17 @@ var defaultEmailConfigs = types.EmailConfig{
 	SmtpDialTimeoutSec: 10,
 	SmtpRetryCount:     0,
 	SmtpRetryDelaySec:  0,
+}
+
+var defaultForwardingConfigs = []types.ForwarderConfig{
+	{
+		Name:        types.QrzForwardingServiceName,
+		Enabled:     false,
+		URL:         "",
+		APIKey:      "",
+		Username:    "",
+		Password:    "",
+		UserAgent:   userAgent,
+		HttpTimeout: 5, // Seconds
+	},
 }
