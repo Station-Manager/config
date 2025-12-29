@@ -25,7 +25,7 @@ var postgresConfig = types.DatastoreConfig{
 
 var sqliteConfig = types.DatastoreConfig{
 	Driver:                    types.SqliteDriverName,
-	Path:                      "db/data.db",
+	Path:                      "db/DefaultHF.db",
 	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "5000"},
 	Debug:                     false,
 	MaxOpenConns:              4, // Readers benefit; writes still serialized
