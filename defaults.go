@@ -383,20 +383,20 @@ var defaultRigConfigs = []types.RigConfig{
 
 var defaultLookupServiceConfigs = []types.LookupConfig{
 	{
-		Name:        types.HamNutLookupServiceName,
-		URL:         "https://api.hamnut.com/v1/call-signs/prefixes",
-		Enabled:     false,
-		HttpTimeout: 5, // Seconds
-		UserAgent:   userAgent,
+		Name:           types.HamNutLookupServiceName,
+		URL:            "https://api.hamnut.com/v1/call-signs/prefixes",
+		Enabled:        false,
+		HttpTimeoutSec: 5, // Seconds
+		UserAgent:      userAgent,
 	},
 	{
-		Name:        types.QrzLookupServiceName,
-		URL:         "https://xmldata.qrz.com/xml/current/",
-		Username:    "?",
-		Password:    "?",
-		Enabled:     false,
-		HttpTimeout: 5, // Seconds
-		UserAgent:   userAgent,
+		Name:           types.QrzLookupServiceName,
+		URL:            "https://xmldata.qrz.com/xml/current/",
+		Username:       "?",
+		Password:       "?",
+		Enabled:        false,
+		HttpTimeoutSec: 5, // Seconds
+		UserAgent:      userAgent,
 	},
 }
 
@@ -444,13 +444,13 @@ var defaultEmailConfigs = types.EmailConfig{
 
 var defaultForwardingConfigs = []types.ForwarderConfig{
 	{
-		Name:        types.QrzForwardingServiceName,
-		Enabled:     false,
-		URL:         "",
-		APIKey:      "",
-		Username:    "",
-		Password:    "",
-		UserAgent:   userAgent,
-		HttpTimeout: 5, // Seconds
+		Name:           types.QrzForwardingServiceName,
+		Enabled:        false,
+		URL:            "",
+		APIKey:         "",
+		Username:       "",
+		Password:       "",
+		UserAgent:      userAgent,
+		HttpTimeoutSec: 5, // Seconds
 	},
 }
