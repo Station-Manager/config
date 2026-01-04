@@ -26,15 +26,14 @@ var postgresConfig = types.DatastoreConfig{
 var sqliteConfig = types.DatastoreConfig{
 	Driver:                    types.SqliteDriverName,
 	Path:                      "db/DefaultHF.db",
-	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "5000"},
+	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "10000"},
 	Debug:                     false,
 	MaxOpenConns:              4, // Readers benefit; writes still serialized
 	MaxIdleConns:              4,
 	ConnMaxLifetime:           0,  // No forced recycle for file-backed DB
 	ConnMaxIdleTime:           5,  // Minutes
-	ContextTimeout:            5,  // Seconds
-	TransactionContextTimeout: 10, // Seconds
-	QsoForwardingRowLimit:     5,
+	ContextTimeout:            15, // Seconds
+	TransactionContextTimeout: 20, // Seconds
 }
 
 var defaultDesktopConfig = types.AppConfig{
@@ -87,14 +86,21 @@ var defaultServerConfig = types.AppConfig{
 }
 
 var defaultRequiredConfigs = types.RequiredConfigs{
-	DefaultLogbookID:             1,
-	DefaultRigID:                 1,
-	DefaultFreq:                  "14.300.000",
-	DefaultMode:                  "USB",
-	DefaultIsRandomQso:           true,
-	DefaultTxPower:               50,
-	PowerMultiplier:              1,  // 1 equals no power multiplier
-	QsoForwardingIntervalSeconds: 30, // Poll every 30 seconds
+	DefaultLogbookID:   1,
+	DefaultRigID:       1,
+	DefaultFreq:        "14.300.000",
+	DefaultMode:        "USB",
+	DefaultIsRandomQso: true,
+	DefaultTxPower:     50,
+	PowerMultiplier:    1, // 1 equals no power multiplier
+
+	/*
+		General configs to do with forwarding QSOs to online services.
+	*/
+	QsoForwardingPollIntervalSeconds: 120, // Poll every 120 seconds
+	QsoForwardingWorkerCount:         5,
+	QsoForwardingQueueSize:           20,
+	QsoForwardingRowLimit:            5,
 }
 
 var defaultRigConfigs = []types.RigConfig{
