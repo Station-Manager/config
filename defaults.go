@@ -92,7 +92,9 @@ var defaultRequiredConfigs = types.RequiredConfigs{
 	DefaultMode:        "USB",
 	DefaultIsRandomQso: true,
 	DefaultTxPower:     50,
-	PowerMultiplier:    1, // 1 equals no power multiplier
+	PowerMultiplier:    10, // 1 equals no power multiplier
+	UsePowerMultiplier: true,
+	DefaultFwdEmail:    "",
 
 	/*
 		General configs to do with forwarding QSOs to online services.
