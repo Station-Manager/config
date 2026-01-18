@@ -105,7 +105,7 @@ var defaultRequiredConfigs = types.RequiredConfigs{
 	QsoForwardingRowLimit:            5,
 	DatabaseWriteQueueSize:           100,
 
-	PagingationPageSize: 50,
+	PagingationPageSize: 24,
 }
 
 var defaultRigConfigs = []types.RigConfig{
