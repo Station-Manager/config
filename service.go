@@ -229,3 +229,13 @@ func (s *Service) EmailConfig() (types.EmailConfig, error) {
 	}
 	return s.AppConfig.EmailConfigs, nil
 }
+
+// OptionalConfigs retrieves optional configuration settings from the service if it has been properly initialized.
+func (s *Service) OptionalConfigs() (types.OptionalConfigs, error) {
+	const op errors.Op = "config.Service.OptionalConfigs"
+	emptyRetVal := types.OptionalConfigs{}
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+	return s.AppConfig.OptionalConfigs, nil
+}

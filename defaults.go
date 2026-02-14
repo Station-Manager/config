@@ -57,6 +57,7 @@ var defaultDesktopConfig = types.AppConfig{
 	LoggingStation:       defaultLoggingStationDetails,
 	EmailConfigs:         defaultEmailConfigs,
 	ForwardingConfigs:    defaultForwardingConfigs,
+	OptionalConfigs:      defaultOptionalConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -106,6 +107,84 @@ var defaultRequiredConfigs = types.RequiredConfigs{
 	DatabaseWriteQueueSize:           100,
 
 	PagingationPageSize: 24,
+}
+
+var defaultLookupServiceConfigs = []types.LookupConfig{
+	{
+		Name:           types.HamNutLookupServiceName,
+		URL:            "https://api.hamnut.com/v1/call-signs/prefixes",
+		Enabled:        false,
+		HttpTimeoutSec: 5, // Seconds
+		UserAgent:      userAgent,
+	},
+	{
+		Name:           types.QrzLookupServiceName,
+		URL:            "https://xmldata.qrz.com/xml/current/",
+		Username:       "?",
+		Password:       "?",
+		Enabled:        false,
+		HttpTimeoutSec: 5, // Seconds
+		UserAgent:      userAgent,
+	},
+}
+
+var defaultLoggingStationDetails = types.LoggingStation{
+	AntennaAzimuth:  "",
+	MyAltitude:      "",
+	MyAntenna:       "",
+	MyCity:          "",
+	MyCountry:       "",
+	MyCqZone:        "",
+	MyDXCC:          "",
+	MyGridsquare:    "",
+	MyIota:          "",
+	MyIotaIslandID:  "",
+	MyITUZone:       "",
+	MyLat:           "",
+	MyLon:           "",
+	MyMorseKeyInfo:  "",
+	MyMorseKeyType:  "",
+	MyName:          "",
+	MyPostalCode:    "",
+	MyRig:           "",
+	MyStreet:        "",
+	MyWwffRef:       "",
+	Operator:        "",
+	OwnerCallsign:   "",
+	StationCallsign: "",
+}
+
+var defaultEmailConfigs = types.EmailConfig{
+	Name:               types.EmailServiceName,
+	Enabled:            false,
+	Username:           "?",
+	Password:           "?",
+	Host:               "?",
+	Port:               587,
+	From:               "?",
+	To:                 "?",
+	Subject:            "",
+	Body:               "",
+	SmtpDialTimeoutSec: 10,
+	SmtpRetryCount:     0,
+	SmtpRetryDelaySec:  0,
+}
+
+var defaultForwardingConfigs = []types.ForwarderConfig{
+	{
+		Name:           types.QrzForwardingServiceName,
+		Enabled:        false,
+		URL:            "",
+		APIKey:         "",
+		Username:       "",
+		Password:       "",
+		UserAgent:      userAgent,
+		HttpTimeoutSec: 5, // Seconds
+	},
+}
+
+var defaultOptionalConfigs = types.OptionalConfigs{
+	QrzViewUrl: "https://www.qrz.com/db/", // This MUST end with a slash!
 }
 
 var defaultRigConfigs = []types.RigConfig{
@@ -389,79 +468,5 @@ var defaultRigConfigs = []types.RigConfig{
 			SendChannelSize:       10,
 			ProcessingChannelSize: 10,
 		},
-	},
-}
-
-var defaultLookupServiceConfigs = []types.LookupConfig{
-	{
-		Name:           types.HamNutLookupServiceName,
-		URL:            "https://api.hamnut.com/v1/call-signs/prefixes",
-		Enabled:        false,
-		HttpTimeoutSec: 5, // Seconds
-		UserAgent:      userAgent,
-	},
-	{
-		Name:           types.QrzLookupServiceName,
-		URL:            "https://xmldata.qrz.com/xml/current/",
-		Username:       "?",
-		Password:       "?",
-		Enabled:        false,
-		HttpTimeoutSec: 5, // Seconds
-		UserAgent:      userAgent,
-	},
-}
-
-var defaultLoggingStationDetails = types.LoggingStation{
-	AntennaAzimuth:  "",
-	MyAltitude:      "",
-	MyAntenna:       "",
-	MyCity:          "",
-	MyCountry:       "",
-	MyCqZone:        "",
-	MyDXCC:          "",
-	MyGridsquare:    "",
-	MyIota:          "",
-	MyIotaIslandID:  "",
-	MyITUZone:       "",
-	MyLat:           "",
-	MyLon:           "",
-	MyMorseKeyInfo:  "",
-	MyMorseKeyType:  "",
-	MyName:          "",
-	MyPostalCode:    "",
-	MyRig:           "",
-	MyStreet:        "",
-	MyWwffRef:       "",
-	Operator:        "",
-	OwnerCallsign:   "",
-	StationCallsign: "",
-}
-
-var defaultEmailConfigs = types.EmailConfig{
-	Name:               types.EmailServiceName,
-	Enabled:            false,
-	Username:           "?",
-	Password:           "?",
-	Host:               "?",
-	Port:               587,
-	From:               "?",
-	To:                 "?",
-	Subject:            "",
-	Body:               "",
-	SmtpDialTimeoutSec: 10,
-	SmtpRetryCount:     0,
-	SmtpRetryDelaySec:  0,
-}
-
-var defaultForwardingConfigs = []types.ForwarderConfig{
-	{
-		Name:           types.QrzForwardingServiceName,
-		Enabled:        false,
-		URL:            "",
-		APIKey:         "",
-		Username:       "",
-		Password:       "",
-		UserAgent:      userAgent,
-		HttpTimeoutSec: 5, // Seconds
 	},
 }
