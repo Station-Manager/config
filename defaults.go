@@ -25,7 +25,7 @@ var postgresConfig = types.DatastoreConfig{
 
 var sqliteConfig = types.DatastoreConfig{
 	Driver:                    types.SqliteDriverName,
-	Path:                      "db/DefaultHF.db",
+	Path:                      "db/data.db",
 	Options:                   map[string]string{"mode": "rwc", "_foreign_keys": "on", "_journal_mode": "WAL", "_busy_timeout": "10000"},
 	Debug:                     false,
 	MaxOpenConns:              4, // Readers benefit; writes still serialized
@@ -87,6 +87,7 @@ var defaultServerConfig = types.AppConfig{
 }
 
 var defaultRequiredConfigs = types.RequiredConfigs{
+	SetupComplete:      false, // Indicates whether setup has been completed
 	DefaultLogbookID:   1,
 	DefaultRigID:       1,
 	DefaultFreq:        "14.300.000",
