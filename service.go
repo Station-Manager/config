@@ -1,6 +1,7 @@
 package config
 
 import (
+	"path/filepath"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -8,6 +9,7 @@ import (
 	"github.com/Station-Manager/errors"
 	"github.com/Station-Manager/types"
 	"github.com/Station-Manager/utils"
+	"github.com/goccy/go-json"
 )
 
 type Service struct {
@@ -216,6 +218,7 @@ func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, er
 	return emptyRetVal, errors.New(op).Msgf("service config not found for: %s", serviceName)
 }
 
+// ForwarderConfigs retrieves the list of forwarder configurations from the application configuration.
 func (s *Service) ForwarderConfigs() ([]types.ForwarderConfig, error) {
 	return s.AppConfig.ForwardingConfigs, nil
 }
@@ -238,4 +241,20 @@ func (s *Service) OptionalConfigs() (types.OptionalConfigs, error) {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
 	return s.AppConfig.OptionalConfigs, nil
+}
+
+// UpdateAppConfig updates the application configuration and writes it to the configuration file.
+func (s *Service) UpdateAppConfig(cfg types.AppConfig) error {
+	const op errors.Op = "config.Service.UpdateAppConfig"
+	if !s.isInitialized.Load() {
+		return errors.New(op).Msg(errMsgNotInitialized)
+	}
+
+	// Pretty-print selected configuration for readability
+	data, err := json.MarshalIndent(cfg, "", "  ")
+	if err != nil {
+		return errors.New(op).Err(err)
+	}
+
+	return writeDataToFile(data, filepath.Join(s.WorkingDir, configFileName))
 }
