@@ -58,6 +58,7 @@ var defaultDesktopConfig = types.AppConfig{
 	EmailConfigs:         defaultEmailConfigs,
 	ForwardingConfigs:    defaultForwardingConfigs,
 	OptionalConfigs:      defaultOptionalConfigs,
+	ListenersConfigs:     defaultListenerConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{
@@ -469,5 +470,15 @@ var defaultRigConfigs = []types.RigConfig{
 			SendChannelSize:       10,
 			ProcessingChannelSize: 10,
 		},
+	},
+}
+
+var defaultListenerConfigs = []types.ListenerConfig{
+	{
+		Name:       "WSJT-X UDP",
+		Enabled:    true,
+		Host:       "localhost",
+		Port:       2237,
+		BufferSize: 1024,
 	},
 }

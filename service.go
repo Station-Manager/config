@@ -220,6 +220,11 @@ func (s *Service) ForwarderConfig(serviceName string) (types.ForwarderConfig, er
 
 // ForwarderConfigs retrieves the list of forwarder configurations from the application configuration.
 func (s *Service) ForwarderConfigs() ([]types.ForwarderConfig, error) {
+	const op errors.Op = "config.Service.ForwarderConfigs"
+	var emptyRetVal []types.ForwarderConfig
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
 	return s.AppConfig.ForwardingConfigs, nil
 }
 
@@ -241,6 +246,17 @@ func (s *Service) OptionalConfigs() (types.OptionalConfigs, error) {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
 	return s.AppConfig.OptionalConfigs, nil
+}
+
+// ListenerConfigs retrieves the listener configuration from the application configuration.
+// Returns an empty slice if the service is not initialized.
+func (s *Service) ListenerConfigs() ([]types.ListenerConfig, error) {
+	const op errors.Op = "config.Service.ListenerConfigs"
+	var emptyRetVal []types.ListenerConfig
+	if !s.isInitialized.Load() {
+		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
+	}
+	return s.AppConfig.ListenersConfigs, nil
 }
 
 // UpdateAppConfig updates the application configuration and writes it to the configuration file.
