@@ -479,6 +479,7 @@ var defaultListenerConfigs = []types.ListenerConfig{
 		Enabled:    true,
 		Host:       "localhost",
 		Port:       2237,
+		Protocol:   "UDP",
 		BufferSize: 1024,
 	},
 }
