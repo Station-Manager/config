@@ -58,7 +58,7 @@ var defaultDesktopConfig = types.AppConfig{
 	EmailConfigs:         defaultEmailConfigs,
 	ForwardingConfigs:    defaultForwardingConfigs,
 	OptionalConfigs:      defaultOptionalConfigs,
-	ListenersConfigs:     defaultListenerConfigs,
+	ListenerConfigs:      defaultListenerConfigs,
 }
 
 var defaultServerConfig = types.AppConfig{

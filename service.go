@@ -256,7 +256,7 @@ func (s *Service) ListenerConfigs() ([]types.ListenerConfig, error) {
 	if !s.isInitialized.Load() {
 		return emptyRetVal, errors.New(op).Msg(errMsgNotInitialized)
 	}
-	return s.AppConfig.ListenersConfigs, nil
+	return s.AppConfig.ListenerConfigs, nil
 }
 
 // UpdateAppConfig updates the application configuration and writes it to the configuration file.
