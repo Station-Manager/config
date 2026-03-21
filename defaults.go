@@ -481,5 +481,6 @@ var defaultListenerConfigs = []types.ListenerConfig{
 		Port:       2237,
 		Protocol:   "UDP",
 		BufferSize: 1024,
+		LogPayload: false,
 	},
 }
