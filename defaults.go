@@ -482,5 +482,11 @@ var defaultListenerConfigs = []types.ListenerConfig{
 		Protocol:   "UDP",
 		BufferSize: 1024,
 		LogPayload: false,
+		Handler:    "wsjtx",
+		HandlerConfig: map[string]any{
+			"auto_log":      false,
+			"log_decodes":   false,
+			"message_types": []int{12},
+		},
 	},
 }

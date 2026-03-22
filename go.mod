@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/Station-Manager/enums v0.0.8
 	github.com/Station-Manager/errors v0.0.11
-	github.com/Station-Manager/types v0.0.86
+	github.com/Station-Manager/types v0.0.88
 	github.com/Station-Manager/utils v0.0.6
 	github.com/goccy/go-json v0.10.6
 )
