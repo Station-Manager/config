@@ -475,7 +475,7 @@ var defaultRigConfigs = []types.RigConfig{
 
 var defaultListenerConfigs = []types.ListenerConfig{
 	{
-		Name:       "WSJT-X UDP",
+		Name:       "WSJT-X",
 		Enabled:    true,
 		Host:       "localhost",
 		Port:       2237,
